@@ -41,7 +41,8 @@ The plan should recommend one approach and get user approval before starting.
 For multi-step:
 1. Bump version to `X.Y.Z-devN` with a plan and commit as a chore marker
 2. Implement in one or more `-devN` commits (bump N as needed)
-3. Final commit removes `-devN`, updates todo/chores — this is the "done" marker
+3. Final commit removes `-devN`, updates todo.md & chores-xx.md — this is the
+   "done" marker
 
 The final release commit (without `-devN`) signals completion rather than amending
 prior commits. This keeps the git history readable and makes it easy to see which

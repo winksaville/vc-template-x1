@@ -1,23 +1,10 @@
-# vc-template-x1
-
-This is the main repo of a dual-repo convention for using
-a bot to help in the development of a coding project. The goal
-is that this main repo contains the "what", while the partner
-bot repo contains "why" and "how". The key to the convention
-is each change is cross-referenced to the other. Thus there
-is a coherent story of the development of the project across time.
-
-The beginnings of that tool is [vc-x1](https://github.com/winksaville/vc-x1)
-which currently does achieve this goal, but is being used as a
-first test bed.
-
-## jj Tips for Git Users
+# Jujutsu (jj) Tips
 
 See [Steve Klabnik](https://github.com/steveklabnik)
 [Jujutsu-tutorial](https://steveklabnik.github.io/jujutsu-tutorial)
 and [jj docs](https://docs.jj-vcs.dev/latest/).
 
-### Initial Commit for a repo
+## Initial Commit for a repo
 
 Create create directory add files.
 
@@ -32,7 +19,7 @@ jj bookmark track main --remote=origin
 jj git push
 ```
 
-### Push a change to main
+## Push a change to main
 
 Assuming that this is to be push to main you
 set the bookmark to the appropriate commit and
@@ -71,7 +58,7 @@ Parent commit (@-)      : vnsyoswv 3ac24f49 main | feat: Update README.md
 wink@3900x 26-03-13T17:28:33.741Z:~/data/prgs/rust/vc-template-x1 ((main))
 ```
 
-### Example of modifying an existing commit and "force" push
+## Example of modifying an existing commit and "force" push
 
 Tweak a commit and push it using `jj edit` then "force" push:
 
@@ -167,7 +154,7 @@ wink@3900x 26-03-13T18:25:46.005Z:~/data/prgs/rust/vc-template-x1 ((main))
 $
 ```
 
-### Why `jj log` shows fewer commits than `gitk`
+## Why `jj log` shows fewer commits than `gitk`
 
 If you're coming from git, jj's log output can be surprising compared to
 tools like `gitk --all`.
@@ -178,7 +165,7 @@ jj creates a new git commit and keeps the old one under `refs/jj/keep/*` as
 undo history. `gitk --all` sees all of these obsolete commits; `jj log` only
 shows the current version of each change.
 
-### Useful commands
+## Useful commands
 
 | Command | Description |
 |---------|-------------|
@@ -217,18 +204,3 @@ For full details see:
   — [ochid (Other Change ID)](./notes/chores-01.md#ochid-other-change-id)
   — [ChangeID path syntax](./notes/chores-01.md#changeid-path-syntax)
   — [.vc-config.toml](./notes/chores-01.md#vc-configtoml)
-
-## License
-
-Licensed under either of
-
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or http://apache.org/licenses/LICENSE-2.0)
-- MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
-
-### Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall
-be dual licensed as above, without any additional terms or conditions.
-
-[1]: https://github.com/karpathy/autoresearch
