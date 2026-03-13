@@ -71,6 +71,67 @@ Parent commit (@-)      : vnsyoswv 3ac24f49 main | feat: Update README.md
 wink@3900x 26-03-13T17:28:33.741Z:~/data/prgs/rust/vc-template-x1 ((main))
 ```
 
+### Example of modifying an existing commit and "force" push
+
+Tweak a commit and push it using `jj edit` then "force" push:
+
+Minimum steps changing @- but it could be any commit:
+
+```
+jj edit -r @- --ignore-immutable 
+vi README.md 
+jj git push
+```
+
+A complete example, the `jj log` commands are to just give
+a little more visibility:
+```
+wink@3900x 26-03-13T17:29:22.712Z:~/data/prgs/rust/vc-template-x1 ((main))
+$ jj log
+@  kywoutls wink@saville.com 2026-03-13 10:28:33 c26d415e
+│  (empty) (no description set)
+◆  vnsyoswv wink@saville.com 2026-03-13 10:28:15 main 3ac24f49
+│  feat: Update README.md
+~
+wink@3900x 26-03-13T17:29:58.596Z:~/data/prgs/rust/vc-template-x1 ((main))
+$ jj edit -r @- --ignore-immutable 
+Working copy  (@) now at: vnsyoswv 3ac24f49 main | feat: Update README.md
+Parent commit (@-)      : vuwzvmwm 1a79f803 feat: Initial commit for the vibe coding main repo
+wink@3900x 26-03-13T17:30:56.922Z:~/data/prgs/rust/vc-template-x1 ((jj/keep/1a79f803025f75fb557a7b6f9d29e3dbee6a1724))
+$ vi README.md 
+wink@3900x 26-03-13T17:32:17.819Z:~/data/prgs/rust/vc-template-x1 ((jj/keep/1a79f803025f75fb557a7b6f9d29e3dbee6a1724))
+$ jj log
+@  vnsyoswv wink@saville.com 2026-03-13 10:32:32 main* 525123b1
+│  feat: Update README.md
+│ ◆  vnsyoswv/1 wink@saville.com 2026-03-13 10:28:15 main@origin 3ac24f49 (hidden)
+├─╯  feat: Update README.md
+◆  vuwzvmwm wink@saville.com 2026-03-13 09:38:22 1a79f803
+│  feat: Initial commit for the vibe coding main repo
+~
+wink@3900x 26-03-13T17:32:32.699Z:~/data/prgs/rust/vc-template-x1 ((jj/keep/1a79f803025f75fb557a7b6f9d29e3dbee6a1724))
+$ jj git push
+Changes to push to origin:
+  Move sideways bookmark main from 3ac24f49321b to 525123b1cdf5
+git: Enumerating objects: 5, done.
+git: Counting objects: 100% (5/5), done.
+git: Delta compression using up to 24 threads
+git: Compressing objects: 100% (3/3), done.
+git: Writing objects: 100% (3/3), 1.40 KiB | 1.40 MiB/s, done.
+git: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+Warning: The working-copy commit in workspace 'default' became immutable, so a new commit has been created on top of it.
+Working copy  (@) now at: plkoouwq 5c2e6fd6 (empty) (no description set)
+Parent commit (@-)      : vnsyoswv 525123b1 main | feat: Update README.md
+wink@3900x 26-03-13T17:33:14.630Z:~/data/prgs/rust/vc-template-x1 ((main))
+$ jj log
+@  plkoouwq wink@saville.com 2026-03-13 10:33:14 5c2e6fd6
+│  (empty) (no description set)
+◆  vnsyoswv wink@saville.com 2026-03-13 10:32:32 main 525123b1
+│  feat: Update README.md
+~
+wink@3900x 26-03-13T17:33:51.821Z:~/data/prgs/rust/vc-template-x1 ((main))
+```
+
 ### Why `jj log` shows fewer commits than `gitk`
 
 If you're coming from git, jj's log output can be surprising compared to
