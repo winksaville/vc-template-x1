@@ -23,6 +23,32 @@ This binary should list the changeID, commitID, and description title
 and using `jj-lib`
 ```
 
+## jj tips
+
+For users new to jj see [jj-tips.md](jj-tips.md).
+
+```
+## Chores format
+
+Filename: "Chores-XX-.md"
+example: chores-01.md
+
+Format of section labels: "## <short description> (YYYYMMDD X.Y.Z)"
+example: "## Topic format description (20260322 0.1.0)"
+
+Example chore file:
+```
+# Chores-01.md
+ 
+General maintenance tasks and considerations for the project see other files for
+more specific topics. A chore in a chores file provides quick information on the
+how and why of a particular chore.
+
+## Do something (20260322 1.3.1)
+
+Describe something
+```
+
 ## Versioning during development
 
 This is using jujustiu, jj + git and we'll see how it goes. Below is my
@@ -41,8 +67,7 @@ The plan should recommend one approach and get user approval before starting.
 For multi-step:
 1. Bump version to `X.Y.Z-devN` with a plan and commit as a chore marker
 2. Implement in one or more `-devN` commits (bump N as needed)
-3. Final commit removes `-devN`, updates todo.md & chores-xx.md — this is the
-   "done" marker
+3. Final commit removes `-devN`, updates todo/chores — this is the "done" marker
 
 The final release commit (without `-devN`) signals completion rather than amending
 prior commits. This keeps the git history readable and makes it easy to see which
@@ -67,6 +92,4 @@ Examples:
 # Done
 - Fixed issue Z [2],[3]
 
-[1]: bugs.md#bug-y
-[2]: issues.md#issue-z
-[3]: fixes.md#fix-z
+[1]: chores-01bugs.md#bug-y

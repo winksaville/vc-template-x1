@@ -5,23 +5,22 @@ and reference links to more details.
 
 ## In Progress
 
-A markdown list of Tasks currently in progress
-
-
 ## Todo
 
 A markdown list of task to do in the near feature
 
+See [Foramt details](README.md#todo-format)
+
+- A dummy chore not complted[2]
 
 ## Done
 
-A markdown list of recently completed tasks, see older [done.md](done.md).
+Completed tasks are moved from `## Todo` to here, `## Done`, as they are completed
+and older `## Done` sections are moved to [done.md](done.md) to keep this file small.
 
+- A completed dummy chore (20260322) [1]
 
 # References
 
-A set of markdown references for tasks and details including vc changeID URLs.
-See [ChangeID footer syntax](chores-01.md#changeid-footer-syntax).
-
-[1]: /notes/chores-01.md#create-a-binary-that-lists-jj-info
-[2]: /notes/chores-01.md#git-trailer-convention
+[1]: chores-01.md#a-completed-dummy-chore-20260322-010
+[2]: chores-01.md#a-dummy-chore-tbd

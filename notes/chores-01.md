@@ -1,14 +1,16 @@
 # Chores-01
 
-General maintenance tasks and considerations for the project see other files for
-more specific topics. A chore in a chores file provides quick information on the
-how and why of a particular chore.
+Discussions and notes on various chores in github compatible markdown.
+There is also a [todo.md](todo.md) file and it tracks tasks and in
+general there should be a chore section for each task with the why
+and how this task will be completed.
 
-This file contiains notes on chores and implemented by tasks tracked
-in [todo.md](todo.md). The chores-xx.md files are intended to be temporary
+See [Chores format](README.md#chores-format)
 
-See [README.md](README.md#notes) for an overview of how to use chores-xx.md and todo.md files.
+## A completed dummy chore (20260322 0.1.0)
 
-## Chore xyz
+A completed dummy chore description.
 
-Details on chore xyz.
+## A dummy chore (TBD)
+
+A dummy chore description.
