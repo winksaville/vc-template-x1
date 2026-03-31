@@ -1,0 +1,3 @@
+[submodule "vc-template-x1.claude"]
+	path = .claude
+	url = git@github.com:winksaville/vc-template-x1.claude

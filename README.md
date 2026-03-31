@@ -11,6 +11,29 @@ The beginnings of that tool is [vc-x1](https://github.com/winksaville/vc-x1)
 which currently does achieve this goal, but is being used as a
 first test bed.
 
+## Cloning
+
+The Bot session repo is setup as a git submodule which
+makes it easier to clone both repos. The easiest is to
+clone both when doing the initial clone:
+```
+git clone --recurisve git@github.com:winksaville/vc-template-x1
+```
+
+If you forget to use --recurisze you need to do two additional
+steps "init" and "update":
+```
+git clone git@github.com:winksaville/vc-template-x1
+git submodule init
+git submodule update
+```
+
+And these can be combined using 'update --init' if you like
+```
+git clone git@github.com:winksaville/vc-template-x1
+git submodule update --init
+```
+
 ## jj Tips for Git Users
 
 See [Steve Klabnik](https://github.com/steveklabnik)
