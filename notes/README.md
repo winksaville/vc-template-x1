@@ -12,15 +12,16 @@ database to better manage the information, TBD.
 Examples chore file:
 ```
 # Chores-01.md
- 
+
 General maintenance tasks and considerations for the project see other files for
 more specific topics. A chore in a chores file provides quick information on the
-how and why of a particular chore.
+how and why of a particular chore. The section header is short and sweet
+and the title is appended with the version number of the app when the chore
+is completed.
 
-## Create a binary that lists jj info 
+## Create an app that does something interesting (0.1.0)
 
-This binary should list the changeID, commitID, and description title
-and using `jj-lib`
+The app counts from 1 to 100, not to interesting.
 ```
 
 ## jj tips
@@ -30,11 +31,11 @@ For users new to jj see [jj-tips.md](jj-tips.md).
 ```
 ## Chores format
 
-Filename: "Chores-XX-.md"
+Filename: "chores-XX.md"
 example: chores-01.md
 
-Format of section labels: "## <short description> (YYYYMMDD X.Y.Z)"
-example: "## Topic format description (20260322 0.1.0)"
+Format of section labels: "## <short description> (X.Y.Z)"
+example: "## Topic format description (0.1.0)"
 
 Example chore file:
 ```
@@ -44,7 +45,7 @@ General maintenance tasks and considerations for the project see other files for
 more specific topics. A chore in a chores file provides quick information on the
 how and why of a particular chore.
 
-## Do something (20260322 1.3.1)
+## Do something (1.3.1)
 
 Describe something
 ```
@@ -86,10 +87,12 @@ is parsed as display text `2` with ref key `3` (so `[2]` won't resolve).
 Examples:
 
 # Todo
-- Add new feature X [details](features.md#feature-x)
+
+- Add new feature X [details](chores-01.md#feature-x)
 - Fix bug Y [1]
 
 # Done
+
 - Fixed issue Z [2],[3]
 
 [1]: chores-01bugs.md#bug-y
