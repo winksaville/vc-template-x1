@@ -50,29 +50,18 @@ how and why of a particular chore.
 Describe something
 ```
 
-## Versioning during development
+## Workflow and conventions
 
-This is using jujustiu, jj + git and we'll see how it goes. Below is my
-git workflow, jj will be different but we'll have to discover that as
-we go.
+Bot-facing workflow, versioning, and code conventions live in
+[`../CLAUDE.md`](../CLAUDE.md). Start there for:
 
-Every plan must start with a version bump. Choose the approach based on scope:
-
-- **Single-step** (recommended for mechanical/focused changes): bump directly to
-  `X.Y.Z`, implement in one commit. Simpler history.
-- **Multi-step** (for exploratory/large changes): bump to `X.Y.Z-devN`, implement
-  across multiple commits, final commit removes `-devN`.
-
-The plan should recommend one approach and get user approval before starting.
-
-For multi-step:
-1. Bump version to `X.Y.Z-devN` with a plan and commit as a chore marker
-2. Implement in one or more `-devN` commits (bump N as needed)
-3. Final commit removes `-devN`, updates todo/chores — this is the "done" marker
-
-The final release commit (without `-devN`) signals completion rather than amending
-prior commits. This keeps the git history readable and makes it easy to see which
-commits were exploratory vs final.
+- **Versioning during development** — single-step vs multi-step,
+  `-N` pre-release suffixes, done-marker discipline.
+- **Code Conventions** — doc comments on every file / fn / method,
+  `// OK: …` justifications on `unwrap*` calls, ask-on-ambiguity,
+  stuck detection.
+- **Commit-Push-Finalize Flow** — two-checkpoint per-step
+  discipline with hard stop after finalize.
 
 ## Todo format
 

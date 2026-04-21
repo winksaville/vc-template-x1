@@ -241,6 +241,26 @@ For full details see:
   — [ChangeID path syntax](./notes/chores-01.md#changeid-path-syntax)
   — [.vc-config.toml](./notes/chores-01.md#vc-configtoml)
 
+## Contributing
+
+Bot-following workflow, commit conventions, and code style are
+canonical in [CLAUDE.md](CLAUDE.md):
+
+- [Versioning during development](CLAUDE.md#versioning) — `-N`
+  pre-release suffix convention (single-step vs multi-step).
+- [Commit message style](CLAUDE.md#commit-message-style).
+- [Commit-Push-Finalize Flow](CLAUDE.md#commit-push-finalize-flow) —
+  two-checkpoint per-step discipline.
+- [Code Conventions](CLAUDE.md#code-conventions) — doc comments on
+  every file / fn / method, `// OK: …` on `unwrap*` calls,
+  ask-on-ambiguity, stuck detection.
+- [Pre-commit checklist](CLAUDE.md#pre-commit-checklist).
+
+Task tracking and release details live under [notes/](notes/):
+near-term tasks in [notes/todo.md](notes/todo.md), per-release
+details in `notes/chores-*.md`, and notes-specific formatting
+rules in [notes/README.md](notes/README.md).
+
 ## License
 
 Licensed under either of
