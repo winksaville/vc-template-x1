@@ -11,6 +11,15 @@ The beginnings of that tool is [vc-x1](https://github.com/winksaville/vc-x1)
 which currently does achieve this goal, but is being used as a
 first test bed.
 
+## This is a template — customize freely
+
+`CLAUDE.md` and this `README.md` are just starting points.
+Read both and edit either to match the conventions you want for your
+project. In particular, decisions like the `cargo install` behavior
+(default re-resolve vs `--locked`) under [Releasing](#releasing) are
+yours to make — pick what fits and update the docs (and the CLAUDE.md
+pre-commit checklist) so the choice is recorded for future readers.
+
 ## Cloning
 
 The Bot session repo is setup as a git submodule which
@@ -33,6 +42,28 @@ And these can be combined using 'update --init' if you like
 git clone git@github.com:winksaville/vc-template-x1
 git submodule update --init
 ```
+
+## Releasing
+
+**`cargo install` lockfile gotcha.**
+
+If you install your project's binary with `cargo install --path .`,
+this template recommends also passing `--locked`. Plain
+`cargo install` ignores `Cargo.lock` and re-resolves dependencies
+from scratch, so it can silently produce a binary built from a
+different (and possibly broken) dependency graph than `cargo build`
+/ `cargo test` ran against. There is no stable cargo config knob
+to make `--locked` the default for `cargo install`, so the
+discipline lives in the project's pre-commit checklist and shell
+aliases.
+
+The trade-off is predictable-as-tested (`--locked`) vs picking up
+upstream security/bug fixes via fresh resolves (default). Either
+is defensible — pick what fits your project, then edit this
+section and CLAUDE.md's pre-commit step 6 to match.
+
+Full background, repro details, and upstream cargo-issue links:
+[notes/cargo-locked-issue.md](notes/cargo-locked-issue.md).
 
 ## jj Tips for Git Users
 
