@@ -3,41 +3,15 @@
 This directory contains various notes and documentation related to the project.
 Each file is organized by topic for easy reference.
 
-By default there are chores-*.md and todo.md. Chores are general notes
+By default there are chores/chores-*.md and todo.md. Chores are general notes
 about tasks and todo.md contains short term tasks and their status.
+The chores-NN files are numbered in sequence; as a chores file grows
+large the next one is opened ([chores/chores-01.md](chores/chores-01.md)
+is the active one in this template), and earlier ones are closed and
+kept for history.
 
-In the future we I expect we may want to create a "notes"
-database to better manage the information, TBD.
 
 Examples chore file:
-```
-# Chores-01.md
-
-General maintenance tasks and considerations for the project see other files for
-more specific topics. A chore in a chores file provides quick information on the
-how and why of a particular chore. The section header is short and sweet
-and the title is appended with the version number of the app when the chore
-is completed.
-
-## Create an app that does something interesting (0.1.0)
-
-The app counts from 1 to 100, not to interesting.
-```
-
-## jj tips
-
-For users new to jj see [jj-tips.md](jj-tips.md).
-
-```
-## Chores format
-
-Filename: "chores-XX.md"
-example: chores-01.md
-
-Format of section labels: "## <short description> (X.Y.Z)"
-example: "## Topic format description (0.1.0)"
-
-Example chore file:
 ```
 # Chores-01.md
  
@@ -45,43 +19,39 @@ General maintenance tasks and considerations for the project see other files for
 more specific topics. A chore in a chores file provides quick information on the
 how and why of a particular chore.
 
-## Do something (1.3.1)
+## Create a binary that lists jj info 
 
-Describe something
+This binary should list the changeID, commitID, and description title
+and using `jj-lib`
 ```
 
 ## Workflow and conventions
 
-Bot-facing workflow, versioning, and code conventions live in
-[`../CLAUDE.md`](../CLAUDE.md). Start there for:
+Bot-facing workflow and conventions live in
+[`../AGENTS.md`](../AGENTS.md):
 
-- **Versioning during development** — single-step vs multi-step,
-  `-N` pre-release suffixes, done-marker discipline.
-- **Code Conventions** — doc comments on every file / fn / method,
-  `// OK: …` justifications on `unwrap*` calls, ask-on-ambiguity,
+- [Notes file conventions](../AGENTS.md#notes-file-conventions)
+  — Todo format, Reference numbering, Notes references
+  (`[[N]]` citation style), Markdown anchor links, Retiring
+  Done entries.
+- [Chores conventions](../AGENTS.md#chores-conventions) —
+  section headers / Done entries exact-title rule, content
+  rules, `Commits:` line format.
+- [Code Conventions](../AGENTS.md#code-conventions) — doc
+  comments, `// OK: …` on `unwrap*` calls, ask-on-ambiguity,
   stuck detection.
-- **Commit-Push-Finalize Flow** — two-checkpoint per-step
-  discipline with hard stop after finalize.
 
-## Todo format
+Per-cycle workflow lives in
+[`cycle-protocol.md`](cycle-protocol.md):
 
-Todo.md contains two main sections "Todo" and "Done" each item is a
-short explanations of a tasks and links to more details using 1 or more
-references.
-
-Multiple references must be separated: `[2],[3]` not `[2,3]` or `[2][3]`.
-In markdown, `[2,3]` is a single ref key (won't resolve) and `[2][3]`
-is parsed as display text `2` with ref key `3` (so `[2]` won't resolve).
-
-Examples:
-
-# Todo
-
-- Add new feature X [details](chores-01.md#feature-x)
-- Fix bug Y [1]
-
-# Done
-
-- Fixed issue Z [2],[3]
-
-[1]: chores-01bugs.md#bug-y
+- [Cycles](cycle-protocol.md#cycles) — three-phase shape
+  (Preparation → Work → Close-out), `X.Y.Z-N` numbering,
+  sub-cycles.
+- [Per-commit flow](cycle-protocol.md#per-commit-flow) —
+  cargo cycle (`fmt` / `clippy` / `test` / `install`),
+  work + commit description review gates.
+- [Commit description](cycle-protocol.md#commit-description)
+  — Conventional Commits + `(version)` suffix; body shape
+  per app vs `.claude` repo.
+- [Pushing](cycle-protocol.md#pushing) — push policy,
+  close-out shape, `.claude` cadence.
