@@ -4,7 +4,8 @@
 
 This project uses **two separate jj-git repos**:
 
-1. **App repo** (`/` — project root): Contains the application source code.
+1. **App repo** (`/` — project root): the project's generated
+   artifact — code, prose, image, song, whatever it produces.
 2. **Bot session repo** (`/.claude/`): Contains Claude Code session data.
 
 Both repos are managed with `jj` (Jujutsu), which coexists with git.
@@ -484,9 +485,15 @@ finds it.
 Every change runs as a **cycle**: Preparation (`X.Y.Z-0`) →
 Work commits (`X.Y.Z-1`, `X.Y.Z-2`, …) → Close-out (bare
 `X.Y.Z`). Each commit runs through a per-commit flow whose
-cargo cycle is fmt → clippy → test → install (exact commands
-in cycle-protocol.md; skip-able for purely-docs commits,
-mandatory at close-out). The full protocol — numbering, per-commit
+validation step is medium-specific:
+
+- the version lives in the project's version location —
+  `version.toml` here, `Cargo.toml` for Rust
+- validate with your medium's tooling — the Rust example is the
+  cargo cycle (fmt → clippy → test → install)
+- skip-able for notes-only commits, mandatory at close-out
+
+The full protocol — numbering, per-commit
 flow, reviewing changes, close-out, pushing, ochid
 trailers, sub-cycles — lives in
 [`notes/cycle-protocol.md`](notes/cycle-protocol.md). Read

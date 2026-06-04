@@ -3,6 +3,14 @@
 This protocol uses [Prose form](../AGENTS.md#prose-form). It
 contains instructions on how a commit cycle is accomplished.
 
+The artifact a cycle produces is whatever the bot generates from
+the conversation — code, prose, an image, a song, a screenplay.
+The steps below use a Rust crate as the running example (the
+cargo cycle, `Cargo.toml` versioning); substitute your medium's
+equivalents. This repo itself has no build system: its version
+lives in [`version.toml`](../version.toml) and it skips the
+cargo cycle.
+
 ## Cycles
 
 A cycle has three phases:
@@ -10,7 +18,7 @@ A cycle has three phases:
 - **[Preparation](#preparation)** (`X.Y.Z-0`) — the cycle's
   first commit. Sets up the cycle:
   - Backfill the previous cycle's chores `Commits:` ref.
-  - Bump `Cargo.toml` to `X.Y.Z-0`.
+  - Bump the version to `X.Y.Z-0` (this repo: `version.toml`).
   - Pick up a `## Todo` item (typically the top-ranked,
     #1) into `## In Progress` (bold title + succinct problem
     statement + plan ladder).
@@ -67,9 +75,11 @@ The cycle's first commit (`X.Y.Z-0`):
 - **Backfill the previous cycle's chores section
   `Commits:` ref** — see
   [Chores commit references](../AGENTS.md#chores-commit-references).
-- **Bump the version** in `Cargo.toml` to `X.Y.Z-0`.
-- **Update `Cargo.lock`** to match — run `cargo build`
-  (or `cargo check`) so the lockfile's `vc-x1` version
+- **Bump the version** to `X.Y.Z-0` in the project's version
+  location — `version.toml` for this repo, `Cargo.toml` for a
+  Rust project, wherever your medium records it otherwise.
+- **(Rust example) Update `Cargo.lock`** to match — run `cargo
+  build` (or `cargo check`) so the lockfile's package version
   tracks `Cargo.toml` in the same commit.
 - **Move a `## Todo` item** (if the cycle has one) into
   `## In Progress` and the todo item should have:
@@ -152,8 +162,9 @@ Sub-cycles needing no Preparation omit `.0` (`-3.1`,
 `-3.2`, `-3`); one that grows a Preparation later adds
 `-3.0` without renumbering siblings.
 
-Bump `Cargo.toml` at the start of each phase so `vc-x1 -V`
-reports the active phase at build time.
+Bump the version at the start of each phase (in `version.toml`
+for this repo) so the active phase is recorded. A Rust project
+would bump `Cargo.toml`, where `<binary> -V` then reports it.
 
 ## Per-commit flow
 
@@ -166,8 +177,9 @@ through:
    for the loop-and-squash technique).
 3. **Flip this commit `(current)` → `(done)`** in `## In
    Progress` — before the cargo cycle and the commit.
-4. **Cargo cycle** (skip-able for purely-docs commits; full
-   cycle mandatory at close-out):
+4. **Validate the artifact** — a medium-specific step, skip-able
+   for notes-only commits, mandatory at close-out. For the Rust
+   example the cargo cycle is:
    1. `cargo fmt`
    2. `cargo clippy --all-targets -- -D warnings`
    3. `cargo test`
@@ -492,9 +504,10 @@ For each Work commit in the ladder:
 
 1. `jj new -R .` — create a fresh empty `@`.
 2. Do the commit's work.
-3. Run `cargo test --bins`. **Non-negotiable** — build
-   and clippy alone miss regressions until a later
-   commit runs the full suite, raising bisection cost.
+3. Run the fast validation (Rust example: `cargo test
+   --bins`). **Non-negotiable** — for code, build and clippy
+   alone miss regressions until a later commit runs the full
+   suite, raising bisection cost.
 4. `jj describe -m "..." -m "..." -R .` — working title
    only (no version suffix); the sub-cycle Close-out
    collects everything into one final commit with the
@@ -556,7 +569,3 @@ prior commits:
 - [`substep-test.sh`](substep-test.sh) — script that
   scaffolds a 4-revision ladder under `/tmp/substep-test`
   for squash-recipe experiments.
-- The per-commit `cargo test --bins` gate exists because a
-  regression introduced in an early ladder commit can go
-  uncaught until a later commit runs the full suite, raising
-  bisection cost.

@@ -1,11 +1,13 @@
 # vc-template-x1
 
 This is the main repo of a dual-repo convention for using
-a bot to help in the development of a coding project. The goal
-is that this main repo contains the "what", while the partner
-bot repo contains "why" and "how". The key to the convention
-is each change is cross-referenced to the other. Thus there
-is a coherent story of the development of the project across time.
+a bot to help develop a project — code, but equally prose, an
+image, a song, a screenplay, anything the bot generates from a
+conversation. The goal is that this main repo contains the
+"what" (the artifact), while the partner bot repo contains the
+"why" and "how" (the conversation). The key to the convention is
+each change is cross-referenced to the other. Thus there is a
+coherent story of the development of the project across time.
 
 The beginnings of that tool is [vc-x1](https://github.com/winksaville/vc-x1)
 which currently does achieve this goal, but is being used as a
@@ -22,13 +24,14 @@ per-commit cargo cycle) so the choice is recorded for future readers.
 
 ## Assumptions
 
-The workflow documented here presumes two things this template
-does not itself ship:
-
-- **A Rust crate.** The per-commit cargo cycle (`cargo fmt` /
-  `clippy` / `test` / `install`) and the `Cargo.toml` version
-  bumps assume you have added a crate; the template carries docs
-  and notes only (no `Cargo.toml` / `src/` yet).
+- **The convention is medium-agnostic.** The artifact can be
+  code, prose, an image, a song, a screenplay — anything the bot
+  generates from a conversation. The docs use a Rust crate as the
+  running example (the per-commit cargo cycle, `Cargo.toml`
+  versioning); substitute your medium's equivalents. This repo
+  itself ships docs and notes only — no build system — so its
+  version lives in [`version.toml`](version.toml) and it skips
+  the cargo cycle.
 - **The `vc-x1` companion tool.** Steps that invoke `vc-x1`
   (`fix-todo`, `validate-todo`, `chid`, `push`, `finalize`) need
   [vc-x1](https://github.com/winksaville/vc-x1) installed; the
