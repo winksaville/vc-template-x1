@@ -37,8 +37,10 @@ Completed tasks are moved from `## Todo` to here, `## Done`, as they are complet
 and older `## Done` sections are moved to [done.md](done.md) to keep this file small.
 
 - docs: completed dummy chore (0.1.0) [[1]]
+- docs: versioning SSOT + generic conventions [[3]]
 
 # References
 
 [1]: chores/chores-01.md#docs-completed-dummy-chore-010
 [2]: chores/chores-01.md#chore-dummy-chore-tbd
+[3]: chores/chores-01.md#docs-versioning-ssot--generic-conventions

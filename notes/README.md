@@ -55,3 +55,15 @@ Per-cycle workflow lives in
   per app vs `.claude` repo.
 - [Pushing](cycle-protocol.md#pushing) — push policy,
   close-out shape, `.claude` cadence.
+
+This repo's versioning lives in
+[`versioning.md`](versioning.md) — generic and shared
+verbatim; the single source of truth that AGENTS.md and
+cycle-protocol.md refer to abstractly:
+
+- [Terms](versioning.md#terms) — version / version-of-record /
+  versioning.
+- [Recording the version-of-record](versioning.md#recording-the-version-of-record)
+  — manifest, notation, reporter, and cadence, by medium.
+- [Step numbering](versioning.md#step-numbering) — the
+  `X.Y.Z-N` scheme, nesting, optional Preparation.

@@ -7,18 +7,21 @@ The artifact a cycle produces is whatever the bot generates from
 the conversation — code, prose, an image, a song, a screenplay.
 The steps below use a Rust crate as the running example (the
 cargo cycle, `Cargo.toml` versioning); substitute your medium's
-equivalents. This repo itself has no build system: its version
-lives in [`version.toml`](../version.toml) and it skips the
-cargo cycle.
+equivalents — this project's manifest is recorded in
+[versioning.md](versioning.md).
 
 ## Cycles
 
 A cycle has three phases:
 
 - **[Preparation](#preparation)** (`X.Y.Z-0`) — the cycle's
-  first commit. Sets up the cycle:
-  - Backfill the previous cycle's chores `Commits:` ref.
-  - Bump the version to `X.Y.Z-0` (this repo: `version.toml`).
+  first commit, when it needs setup (a lightweight cycle omits
+  it and starts at `-1` — see
+  [versioning.md](versioning.md#step-numbering)). Sets up the
+  cycle:
+  - Bump the version-of-record to `X.Y.Z-0` (where it lives
+    and the suffix scheme are project-specific — see
+    [versioning.md](versioning.md)).
   - Pick up a `## Todo` item (typically the top-ranked,
     #1) into `## In Progress` (bold title + succinct problem
     statement + plan ladder).
@@ -52,35 +55,65 @@ for the local-ladder mechanics.
 ## Chores sections
 
 A **chores section** is a `##` section in
-`notes/chores/chores-NN.md` recording one cycle:
-
-- One section per cycle is the default.
-- Per-commit sections (one section per commit) are a
-  deliberate alternative.
+`notes/chores/chores-NN.md` recording landed work. In
+general, every commit that lands on the permanent branch
+should have a reference to it on a `Commits:` list in a
+chores file.
 
 The phrase **"Open" the chores section** means append a
 `##` header to the current `notes/chores/chores-NN.md`
-with the cycle's anticipated close-out title (e.g.
-`## refactor: foo bar (X.Y.Z)`). The body is empty;
-content arrives at close-out (see [Close-out](#close-out)).
+with the title it records (e.g. `## refactor: foo bar`),
+followed by an **empty `Commits:`** line. The narrative
+body stays empty until close-out (see [Close-out](#close-out));
+the `Commits:` line is backfilled later, once the commit is
+permanent (see [Commits backfill](#commits-backfill) below).
 
 Fuller chores conventions (content rules, header sync,
 design subsection pattern, `Commits:` formatting) live in
 AGENTS.md [Chores conventions](../AGENTS.md#chores-conventions).
 
+### Commits backfill
+
+A chores section's `Commits:` line cites the commit(s) it
+records, by SHA — but a SHA isn't stable until the commit
+lands on a **permanent branch** (`main`, or a long-lived
+release/patch branch that won't be rewritten); a rebase or
+squash rewrites it on the way. So:
+
+- A chores section is **opened with an empty `Commits:`** line.
+- **Backfill once the commit is on a permanent branch**,
+  where its SHA is final. A commit can't record its own SHA
+  (that would change the hash), so the fill always lands one
+  push later: **each push backfills the `Commits:` of the
+  commits the previous push made permanent.** On a topic
+  branch the sections instead wait until the branch lands —
+  so no SHA is ever written that a later rebase could
+  invalidate.
+
+Use `[[N]]` refs — several as `[[N]],[[M]]` only when one
+section records multiple commits (a merge non-ff close-out) —
+with the commit URL + 40-hex SHA in the file's `# References`
+(format in AGENTS.md
+[Chores commit references](../AGENTS.md#chores-commit-references)).
+A section's `##` title matches its commit title, so a rare
+deliberate rewrite of a permanent-branch commit re-syncs via
+`git log --grep "<title>"`.
+
+The per-push cadence is a project choice, not dogma — a
+**per-close-out** model (recording a cycle's SHAs at its
+close-out) is equally valid. The one invariant: a recorded
+SHA must be permanent.
+
 ## Preparation
 
-The cycle's first commit (`X.Y.Z-0`):
+The cycle's first commit (`X.Y.Z-0`), when the cycle needs
+setup (a lightweight cycle omits it — see
+[versioning.md](versioning.md#step-numbering)):
 
-- **Backfill the previous cycle's chores section
-  `Commits:` ref** — see
-  [Chores commit references](../AGENTS.md#chores-commit-references).
-- **Bump the version** to `X.Y.Z-0` in the project's version
-  location — `version.toml` for this repo, `Cargo.toml` for a
-  Rust project, wherever your medium records it otherwise.
-- **(Rust example) Update `Cargo.lock`** to match — run `cargo
-  build` (or `cargo check`) so the lockfile's package version
-  tracks `Cargo.toml` in the same commit.
+- **Bump the version-of-record** to `X.Y.Z-0`. Where it
+  lives, the suffix scheme, and any derived files (a
+  lockfile, a sourced manifest version) are
+  project-specific — see [versioning.md](versioning.md).
 - **Move a `## Todo` item** (if the cycle has one) into
   `## In Progress` and the todo item should have:
   - A **bold title line** — that will be the chores
@@ -88,8 +121,8 @@ The cycle's first commit (`X.Y.Z-0`):
   - A **succinct problem statement**; add if one is needed
   - A **plan ladder**.
 - **Open the [chores section](#chores-sections)** —
-  append a `##` header with the cycle's anticipated
-  close-out title.
+  append a `##` header with the title it records — the
+  cycle's anticipated close-out title.
 
 ## Work-N
 
@@ -137,34 +170,13 @@ see [Pushing](#pushing).
 
 ## Numbering
 
-The version suffix on each commit encodes its phase —
-the **final identifier `0` marks a Preparation**:
-
-- `X.Y.Z-0` — Preparation
-- `X.Y.Z-1`, `X.Y.Z-2`, … — Work commits
-- `X.Y.Z` — Close-out (bare version, no suffix)
-
-Disambiguation:
-
-- `-10` — Work commit #10 (final identifier `10`), not a
-  Preparation.
-- `-1.0` — Preparation of the `-1` sub-cycle (final
-  identifier `0`).
-
-**Nesting.** Sub-cycles append another level, recursively:
-
-- `X.Y.Z-3.0` — Preparation of the `-3` sub-cycle
-- `X.Y.Z-3.1`, `X.Y.Z-3.2` — its Work
-- `X.Y.Z-3` — its Close-out
-- `X.Y.Z-3.1.0` — Preparation of the `-3.1` sub-sub-cycle
-
-Sub-cycles needing no Preparation omit `.0` (`-3.1`,
-`-3.2`, `-3`); one that grows a Preparation later adds
-`-3.0` without renumbering siblings.
-
-Bump the version at the start of each phase (in `version.toml`
-for this repo) so the active phase is recorded. A Rust project
-would bump `Cargo.toml`, where `<binary> -V` then reports it.
+Each commit's phase is encoded in the version suffix — `-0`
+Preparation, `-1`/`-2`/… Work, bare `X.Y.Z` Close-out,
+recursively for sub-cycles. The full scheme — disambiguation,
+nesting, optional Preparation, the project's version-of-record
+format, and the per-phase bump — lives in
+[versioning.md](versioning.md#step-numbering), which is the
+single source of truth for this repo's versioning.
 
 ## Per-commit flow
 
@@ -198,7 +210,7 @@ through:
 
    ```
    jj commit -m \
-   "<type>: <short description> (<version>)" \
+   "<type>: <short description>" \
    -m "<intro paragraph>
 
    - file1: gist
@@ -218,16 +230,25 @@ through:
 
 ## Commit description
 
-[Conventional Commits](https://www.conventionalcommits.org/)
-with a version suffix:
+[Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-<type>: <short description> (<version>)
+<type>: <short description>
 ```
+
+Titles carry **no trailing `(<version>)` suffix**. The
+version-of-record — where it lives and its bump cadence, see
+[versioning.md](versioning.md) — is useful for confirming
+you're running the version you're testing, not a per-commit
+title marker. We think per-commit version-in-title is
+unstable on large projects: many changes are in flight
+simultaneously, and a
+version is only stable once merged into the main repo — so
+titles don't carry one.
 
 ### Title
 
-- ≤50 chars total (version suffix counts).
+- ≤50 chars total.
 - Common types: `feat`, `fix`, `refactor`, `test`,
   `docs`, `chore`.
 - Favor terse phrasings.
@@ -293,6 +314,33 @@ are in [`jj-tips.md`](jj-tips.md#revsets).
 Push is **discretionary** during the cycle (backup,
 progress visibility) and **mandatory at close-out** —
 the cycle's result must be published.
+
+**Approval is per-push.** Every push — any repo, any kind:
+cycle push, interim backup, recovery/surgery force-push —
+happens only after the user has reviewed the changes to be
+published and explicitly approved that specific push.
+Approval of a plan that *includes* a push does not authorize
+the push itself; stop and ask again at the moment of pushing.
+
+**Default is interactive; an explicit scoped delegation waives
+the gates.** The gates above — per-push approval, the
+commit-description review (show title+body and stop), and the
+hard stop after push/finalize — are the *interactive default*.
+They yield when the user **explicitly** delegates a complete,
+bounded task and authorizes carrying it through ("do all of X
+and push each step, don't check in"). The bot then proceeds
+through that task's commits and pushes without stopping, and
+continues past each push to the next step. Conditions:
+
+- **Explicit grant** — never inferred from a task merely being
+  well-scoped; the user's words must authorize unattended
+  completion.
+- **Bounded goal** — covers the named task only; does not carry
+  to the next task or a vaguer follow-on.
+- **Still transparent** — report each commit/push as it lands
+  (title + outcome) so the user can catch up.
+- **When in doubt, ask** — ambiguous authorization falls back to
+  per-push approval.
 
 ### Shape at close-out push
 
@@ -486,7 +534,7 @@ from incremental review, loop:
 
 Same jj mechanics as a
 [sub-cycle ladder](#sub-cycle-ladders), but at
-single-commit scope — the cycle's version suffix
+single-commit scope — the version
 doesn't change.
 
 ## Sub-cycle ladders
@@ -509,9 +557,8 @@ For each Work commit in the ladder:
    alone miss regressions until a later commit runs the full
    suite, raising bisection cost.
 4. `jj describe -m "..." -m "..." -R .` — working title
-   only (no version suffix); the sub-cycle Close-out
-   collects everything into one final commit with the
-   `(X.Y.Z-N)` marker.
+   only; the sub-cycle Close-out collects everything
+   into one final commit.
 
 ### Navigating the ladder
 
@@ -569,3 +616,7 @@ prior commits:
 - [`substep-test.sh`](substep-test.sh) — script that
   scaffolds a 4-revision ladder under `/tmp/substep-test`
   for squash-recipe experiments.
+- The per-commit `cargo test --bins` gate exists because a
+  regression introduced in an early ladder commit can go
+  uncaught until a later commit runs the full suite, raising
+  bisection cost.
