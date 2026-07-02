@@ -252,6 +252,9 @@ titles don't carry one.
 - Common types: `feat`, `fix`, `refactor`, `test`,
   `docs`, `chore`.
 - Favor terse phrasings.
+- Distinct per step, sharing a greppable stem across the
+  cycle — see AGENTS.md
+  [Conventional-commit shape](../AGENTS.md#conventional-commit-shape-ladder--chores--commit).
 
 ### Body
 
