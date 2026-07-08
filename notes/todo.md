@@ -14,6 +14,19 @@ by the "plan" — a bulleted list of the development "ladder":
    - 0.xx.y-2 blah blah blah
    - 0.xx.y close-out and validation
 
+**fix: number todo example entries per Todo format**
+
+AGENTS.md's "Example shape" `# Todo` entries used `-` bullets,
+contradicting the normative "entries carry explicit `1.` `2.` …
+numbers" text above it. iiac-perf hit the same nonconformance
+in its real list and fixed both there (its AGENTS.md is a copy);
+this syncs the template's AGENTS.md to match.
+
+- AGENTS.md example numbered (done)
+- todo.md's dummy `## Todo` entry numbered (done)
+- `fix-todo` / `validate-todo` run clean (done)
+- commit + push via this repo's cycle protocol (current)
+
 ## Todo
 
  Entries are in **strict priority rank** — #1 highest,
@@ -29,7 +42,7 @@ by the "plan" — a bulleted list of the development "ladder":
  subsections (link via `[N]` ref).
 
 
-- chore: dummy chore (TBD) [[2]]
+1. chore: dummy chore (TBD) [[2]]
 
 ## Done
 
