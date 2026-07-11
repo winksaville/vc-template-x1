@@ -51,8 +51,8 @@ Per-cycle workflow lives in
   cargo cycle (`fmt` / `clippy` / `test` / `install`),
   work + commit description review gates.
 - [Commit description](cycle-protocol.md#commit-description)
-  — Conventional Commits + `(version)` suffix; body shape
-  per app vs `.claude` repo.
+  — Conventional Commits, no `(version)` suffix; body shape
+  per work vs bot repo.
 - [Pushing](cycle-protocol.md#pushing) — push policy,
   close-out shape, `.claude` cadence.
 
