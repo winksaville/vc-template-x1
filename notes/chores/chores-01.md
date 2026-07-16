@@ -8,7 +8,7 @@ with the why and how this task will be completed.
 
 ## docs: shared protocol set; template cleanup
 
-Commits:
+Commits: [[2]]
 
 Two threads land together. First, the notes-sync round with
 vc-x1: the shared protocol set — `AGENTS.md`,
@@ -37,6 +37,27 @@ so a cloned repo starts clean, and land the Rust unwrap policy.
   Recover it from its introducing commit [[1]]:
   `git show bd2902617c2f:notes/substep-test.sh`.
 
+## docs: converge shared protocol doc set
+
+Commits:
+
+The shared protocol doc set — `AGENTS.md`,
+`notes/cycle-protocol.md`, `notes/jj-tips.md` — now matches
+byte-for-byte across vc-template-x1, vc-x1, and iiac-perf. The
+template takes the four review fixes agreed across the three
+sessions; the adopters replaced their older copies wholesale, so
+per-repo diffs differ while the resulting files are identical.
+(`notes/versioning.md`, the set's fourth file, was untouched
+this round and remains identical everywhere.)
+
+- The commit body carries a sha256 manifest (12-hex) of the
+  three converged files, so any repo can verify convergence
+  later without cross-repo diffs.
+- Review fixes: a stale "clippy runs in preflight" claim in
+  AGENTS.md — written before preflight became repo-state-only —
+  and three typo-level fixes in jj-tips.md's force-push example.
+
 # References
 
 [1]: https://github.com/winksaville/vc-template-x1/commit/bd2902617c2f "bd2902617c2fc96b43ad08799b198e17567ce601"
+[2]: https://github.com/winksaville/vc-template-x1/commit/a680ff86683d "a680ff86683d3f5e687cc06737b3d00c8c592f44"
