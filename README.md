@@ -1,4 +1,4 @@
-# vc-template-x1
+# vc-x1-work-repo-template
 
 <one paragraph: what this project is / status>
 

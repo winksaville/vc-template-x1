@@ -8,11 +8,19 @@ uses links or reference links for more details.
 
 When a `## Todo` item is picked up, its text moves here: the
 problem overview and its list of things to do. That is followed
-by the "plan" — a bulleted list of the development "ladder":
-   - 0.xx.y-0 blah (done)
-   - 0.xx.y-1 blah blah (current)
-   - 0.xx.y-2 blah blah blah
-   - 0.xx.y close-out and validation
+by the "plan" — a bullet + sub-bullets list of the development
+"ladder". Each step starts with a `[[N]]` reference slot —
+replaced with the step's commit ref on first backfill, once
+the step is pushed — then the version, the title, and a
+`(done|current)` marker as appropriate:
+   - [[N]] 0.xx.y-0 blah (current)
+   - [[N]] 0.xx.y-1 blah blah
+   - [[N]] 0.xx.y-2 blah blah blah
+   - [[N]] 0.xx.y close-out and validation
+
+At close-out the ladder lives on as the cycle's chores
+`### As-built ladder`, where the refs are preserved
+(renumbered to that file's local `# References` slots).
 
 ## Todo
 
