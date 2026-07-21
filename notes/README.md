@@ -8,7 +8,7 @@ list lives in the repo-root [`../TODO.md`](../TODO.md). Chores are general
 notes about tasks and `../TODO.md` contains short term tasks and their status.
 The chores-NN files are numbered in sequence; as a chores file grows
 large the next one is opened ([chores/chores-01.md](chores/chores-01.md)
-is the active one in this template), and earlier ones are closed and
+is the active one in this repo), and earlier ones are closed and
 kept for history.
 
 
